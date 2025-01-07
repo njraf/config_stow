@@ -1,0 +1,5 @@
+[user]
+	name = Nick Rafala
+	email = nrafala@outlook.com
+[alias]
+	hist = log --all --decorate --oneline --graph
