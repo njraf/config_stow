@@ -12,6 +12,13 @@ set ignorecase
 :command W w
 :command Wq wq
 :command WQ wq
+:command Wa wa
+:command WA wa
+:command Wqa wqa
+:command WQa wqa
+:command WQA wqa
+:command Qa qa
+:command QA qa
 
 :colorscheme desert
 
