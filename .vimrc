@@ -6,7 +6,7 @@ set incsearch
 set smartcase
 set hlsearch
 set ignorecase
-
+set smartindent
 
 :command Q q
 :command W w
