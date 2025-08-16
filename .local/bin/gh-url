@@ -1,0 +1,8 @@
+#!/bin/bash
+
+if [[ $# < 1 ]]; then
+	echo "Need a repo name: $0 <repo-name>"
+	exit
+fi
+
+gh repo view $1 --json url -q .url
