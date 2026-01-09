@@ -26,6 +26,9 @@ set ignorecase
 " Custom commands
 nnoremap <Esc> <Cmd>:noh<CR>
 
+au BufWinLeave * mkview
+au BufWinEnter * silent loadview
+
 " Color scheme
 :colorscheme desert
 
