@@ -23,8 +23,12 @@ set ignorecase
 :command Qa qa
 :command QA qa
 
-" Custom commands
+" Custom commands "
+" Use Esc to stop highlighting
 nnoremap <Esc> <Cmd>:noh<CR>
+" disable Ex mode and command history
+map q: <Nop>
+nnoremap Q <Nop>
 
 au BufWinLeave * mkview
 au BufWinEnter * silent loadview
