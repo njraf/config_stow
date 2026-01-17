@@ -7,6 +7,7 @@ set incsearch
 set smartcase
 set hlsearch
 set ignorecase
+set laststatus=2
 "set foldmethod=indent "allows folding blocks of code identified by indent
 "level; auto folds everything on file open
 
@@ -23,12 +24,21 @@ set ignorecase
 :command Qa qa
 :command QA qa
 
+let mapleader = " "
+
 " Custom commands "
 " Use Esc to stop highlighting
 nnoremap <Esc> <Cmd>:noh<CR>
 " disable Ex mode and command history
 map q: <Nop>
 nnoremap Q <Nop>
+" buffer navigation
+nnoremap <C-l> :bn<CR>
+nnoremap <C-h> :bp<CR>
+nnoremap <leader>b :ls<CR>:b 
+" ctrl-S save
+nnoremap <C-s> :w<CR>
+inoremap <C-s> <Esc>:w<CR>
 
 au BufWinLeave * mkview
 au BufWinEnter * silent loadview
