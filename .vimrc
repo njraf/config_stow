@@ -12,17 +12,17 @@ set laststatus=2
 "level; auto folds everything on file open
 
 " Command aliases
-:command Q q
-:command W w
-:command Wq wq
-:command WQ wq
-:command Wa wa
-:command WA wa
-:command Wqa wqa
-:command WQa wqa
-:command WQA wqa
-:command Qa qa
-:command QA qa
+command Q q
+command W w
+command Wq wq
+command WQ wq
+command Wa wa
+command WA wa
+command Wqa wqa
+command WQa wqa
+command WQA wqa
+command Qa qa
+command QA qa
 
 let mapleader = " "
 
@@ -39,6 +39,17 @@ nnoremap <leader>b :ls<CR>:b
 " ctrl-S save
 nnoremap <C-s> :w<CR>
 inoremap <C-s> <Esc>:w<CR>
+
+" grep for text and show in quickfix menu
+command -nargs=+ Grep execute 'silent vimgrep /<args>/gj **/*' | copen
+nnoremap <leader>g :Grep<space>
+
+" navigate quickfix menu
+nnoremap <C-j> :cn<CR>
+nnoremap <C-k> :cp<CR>
+
+" close all windows
+nnoremap <leader>qq :qa<CR>
 
 au BufWinLeave * mkview
 au BufWinEnter * silent loadview
