@@ -44,9 +44,9 @@ function! Grep(str = "")
 		let id = matchadd('Search', '\c' . escape(l:pattern, '/\'))
 	endif
 endfunction
-nnoremap <leader>gg :call Grep()<CR>
+nnoremap <silent> <leader>gg :call Grep()<CR>
 " grep word under cursor
-nnoremap <leader>gw :call Grep(expand('<cword>'))<CR>
+nnoremap <silent> <leader>gw :call Grep(expand('<cword>'))<CR>
 
 " function to bind find
 function! Find(str = "")
@@ -56,9 +56,9 @@ function! Find(str = "")
 		copen
 	endif
 endfunction
-nnoremap <leader>ff :call Find()<CR>
+nnoremap <silent> <leader>ff :call Find()<CR>
 " grep word under cursor
-nnoremap <leader>fw :call Find(expand('<cword>'))<CR>
+nnoremap <silent> <leader>fw :call Find(expand('<cword>'))<CR>
 
 " switch between c++ header and source files
 function! SwitchSource()
@@ -74,39 +74,39 @@ function! SwitchSource()
 		endif
 	endif
 endfunction
-nnoremap <leader>ch :call SwitchSource()<CR>
+nnoremap <silent> <leader>ch :call SwitchSource()<CR>
 
 " toggle a file explorer in a vertical split
-nnoremap <leader>e :Lexplore<CR> 999<C-w>< 40<C-w>> 5h
+nnoremap <silent> <leader>e :Lexplore<CR> 999<C-w>< 40<C-w>> 5h
 
 " Custom commands "
 " Use Esc to stop highlighting and close quickfix menu
-nnoremap <Esc> <Cmd>:noh<CR>:cclose<CR>
+nnoremap <silent> <Esc> <Cmd>:noh<CR>:cclose<CR>
 " disable Ex mode and command history
 map q: <Nop>
 nnoremap Q <Nop>
 " buffer navigation
-nnoremap <C-l> :bn<CR>
-nnoremap <C-h> :bp<CR>
+nnoremap <silent> <C-l> :bn<CR>
+nnoremap <silent> <C-h> :bp<CR>
 nnoremap <leader>b :ls<CR>:b 
-nnoremap <leader>d :bp\|:bd #<CR>
+nnoremap <silent> <leader>d :bp\|:bd #<CR>
 " ctrl-S save
-nnoremap <C-s> :w<CR>
-inoremap <C-s> <Esc>:w<CR>
+nnoremap <silent> <C-s> :w<CR>
+inoremap <silent> <C-s> <Esc>:w<CR>
 
 " navigate quickfix menu
-nnoremap <C-j> :cn<CR>
-nnoremap <C-k> :cp<CR>
+nnoremap <silent> <C-j> :cn<CR>
+nnoremap <silent> <C-k> :cp<CR>
 
 " close all windows
-nnoremap <leader>qq :qa<CR>
+nnoremap <silent> <leader>qq :qa<CR>
 " quit current buffer
-nnoremap <leader>qw :q<CR>
+nnoremap <silent> <leader>qw :q<CR>
 " close close window next to current window
-map <leader>qh <C-w>h :q<CR>
-map <leader>qj <C-w>j :q<CR>
-map <leader>qk <C-w>k :q<CR>
-map <leader>ql <C-w>l :q<CR>
+map <silent> <leader>qh <C-w>h :q<CR>
+map <silent> <leader>qj <C-w>j :q<CR>
+map <silent> <leader>qk <C-w>k :q<CR>
+map <silent> <leader>ql <C-w>l :q<CR>
 
 au BufWinLeave * silent! mkview
 au BufWinEnter * silent! loadview
