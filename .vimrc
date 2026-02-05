@@ -77,7 +77,7 @@ endfunction
 nnoremap <silent> <leader>ch :call SwitchSource()<CR>
 
 " toggle a file explorer in a vertical split
-nnoremap <silent> <leader>e :Lexplore<CR> 999<C-w>< 40<C-w>> 5h
+nnoremap <silent> <leader>e :20Lexplore<CR>
 
 " Custom commands "
 " Use Esc to stop highlighting and close quickfix menu
