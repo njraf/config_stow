@@ -29,6 +29,7 @@ filetype plugin on
 " netrw configs
 let g:netrw_browse_split=4 " open the selected file with <CR> in the previous window
 let g:netrw_bufsettings='noma nomod nu nowrap ro nobl rnu'
+let g:netrw_liststyle=3
 
 " Command aliases
 command Q q
