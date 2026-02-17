@@ -11,6 +11,7 @@ set incsearch
 set smartcase
 set hlsearch
 set ignorecase
+set autocomplete
 set laststatus=2
 set foldmethod=indent " allows folding blocks of code identified by indent
 set foldlevelstart=99 " prevent autofold when opening a file for the first time
