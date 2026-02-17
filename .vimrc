@@ -1,4 +1,5 @@
 " Options
+set nocompatible
 set number
 set relativenumber
 set ruler
@@ -11,11 +12,19 @@ set incsearch
 set smartcase
 set hlsearch
 set ignorecase
-set autocomplete
 set laststatus=2
 set foldmethod=indent " allows folding blocks of code identified by indent
 set foldlevelstart=99 " prevent autofold when opening a file for the first time
-set path=.,,**/src/**,**/include/**
+set cursorline
+set wildmenu
+set path=.,,**
+
+set autocomplete
+set completeopt-=preview
+
+set viewoptions-=options
+
+filetype plugin on
 
 " netrw configs
 let g:netrw_browse_split=4 " open the selected file with <CR> in the previous window
@@ -126,5 +135,4 @@ let g:UltiSnipsExpandTrigger="<C-g>"
 "let g:ycm_enable_inlay_hints = 1
 let g:ycm_autoclose_preview_window_after_completion = 1
 "let g:ycm_add_preview_to_completeopt = 0
-set completeopt-=preview
 
