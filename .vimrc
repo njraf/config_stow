@@ -6,25 +6,28 @@ set ruler
 set title
 set linebreak
 set noerrorbells
-"set smartindent
 set autoindent
+set smartindent
 set incsearch
 set smartcase
 set hlsearch
 set ignorecase
 set laststatus=2
-set foldmethod=indent " allows folding blocks of code identified by indent
+set foldmethod=syntax
 set foldlevelstart=99 " prevent autofold when opening a file for the first time
 set cursorline
 set wildmenu
+set undofile
+set undodir=~/.vim/undo
 set path=.,,**
 
 set autocomplete
-set completeopt-=preview
+set completeopt-=preview " was set for a plugin.
 
-set viewoptions-=options
+set viewoptions=folds,cursor
 
 filetype plugin on
+syntax enable
 
 " netrw configs
 let g:netrw_browse_split=4 " open the selected file with <CR> in the previous window
@@ -50,14 +53,15 @@ let mapleader = " "
 function! Grep(str = "")
 	let l:pattern = a:str == "" ? input('Grep for:') : a:str
 	if !empty(l:pattern)
-		execute 'silent! vimgrep /' . escape(l:pattern, '/\') . '/gj **/*'
+		execute 'silent! vimgrep /' . escape(l:pattern, '/') . '/gj **/*'
 		copen
-		let id = matchadd('Search', '\c' . escape(l:pattern, '/\'))
+		let id = matchadd('Search', '\c' . escape(l:pattern, '/'))
 	endif
 endfunction
 nnoremap <silent> <leader>gg :call Grep()<CR>
 " grep word under cursor
 nnoremap <silent> <leader>gw :call Grep(expand('<cword>'))<CR>
+nnoremap <silent> <leader>gW :call Grep('\<' . expand('<cword>') . '\>')<CR>
 
 " function to bind find
 function! Find(str = "")
@@ -86,6 +90,38 @@ function! SwitchSource()
 	endif
 endfunction
 nnoremap <silent> <leader>ch :call SwitchSource()<CR>
+
+" Build a statusline showing all active and hidden buffers
+function! StatusLine()
+  let l:buffers = []
+
+  for l:bufnr in range(1, bufnr('$'))
+    " Skip unlisted buffers (e.g. netrw, help, quickfix)
+    if !buflisted(l:bufnr)
+      continue
+    endif
+
+    let l:name = bufname(l:bufnr)
+    let l:label = empty(l:name) ? '[No Name]' : fnamemodify(l:name, ':t')
+
+    " Mark the current buffer distinctly
+    if l:bufnr == bufnr('%')
+      let l:label = '%#Folded#' . l:label . '%#StatusLine#'
+    endif
+
+    " Append a '+' if the buffer has unsaved changes
+    if getbufvar(l:bufnr, '&modified')
+      let l:label .= '+'
+    endif
+
+    call add(l:buffers, l:label)
+  endfor
+
+  return '%#StatusLine#' . join(l:buffers, '  │  ') . '%=%l:%c          %P'
+endfunction
+
+" Attach the function to the statusline
+set statusline=%!StatusLine()
 
 " toggle a file explorer in a vertical split
 nnoremap <silent> <leader>e :20Lexplore<CR>
@@ -119,11 +155,14 @@ map <silent> <leader>qj <C-w>j :q<CR>
 map <silent> <leader>qk <C-w>k :q<CR>
 map <silent> <leader>ql <C-w>l :q<CR>
 
+" Auto commands "
 au BufWinLeave * silent! mkview
 au BufWinEnter * silent! loadview
+" remove [No Name files when they are no longer visible]
+au BufEnter * if bufname('%') == '' |  setlocal bufhidden=wipe | endif
 
 " Color scheme
-:colorscheme desert
+colorscheme desert
 
 " Ultisnips
 let g:UltiSnipsListSnippets="<C-l>"
