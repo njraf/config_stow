@@ -19,6 +19,10 @@ set cursorline
 set wildmenu
 set undofile
 set undodir=~/.vim/undo
+set autoread
+set noswapfile
+set showcmd
+set scrolloff=5
 set path=.,,**
 
 set autocomplete
