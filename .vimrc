@@ -160,13 +160,64 @@ map <silent> <leader>qk <C-w>k :q<CR>
 map <silent> <leader>ql <C-w>l :q<CR>
 
 " Auto commands "
-au BufWinLeave * silent! mkview
-au BufWinEnter * silent! loadview
+autocmd BufWinLeave * silent! mkview
+autocmd BufWinEnter * silent! loadview
 " remove [No Name files when they are no longer visible]
-au BufEnter * if bufname('%') == '' |  setlocal bufhidden=wipe | endif
+autocmd BufEnter * if bufname('%') == '' |  setlocal bufhidden=wipe | endif
 
 " Color scheme
 colorscheme desert
+
+" cscope
+if has("cscope")
+	set cscopetag " use <C-]> to go to a tag in place of ctags
+	set nocscopeverbose " ignore error messages
+	set cscopequickfix=s-,c-,d-,i-,t-,e-,g-,f-,a-
+	if filereadable("cscope.out")
+		cs add cscope.out
+	elseif $CSCOPE_DB != ""
+		cs add $CSCOPE_DB
+	endif
+
+	function! CscopeFind(queryType)
+		let word = expand("<cword>")
+		execute 'cs find ' . a:queryType . ' ' . word
+		copen
+		"execute '/' . word
+		let id = matchadd('Search', word)
+	endfunction
+
+	" keybinds
+	" find C symbol
+	nnoremap <leader>ss :call CscopeFind('s')<CR>
+	" find definition
+	nnoremap <leader>sg :call CscopeFind('g')<CR>
+	" find functions called by this function
+	nnoremap <leader>sd :call CscopeFind('d')<CR>
+	" find functions calling this function
+	nnoremap <leader>sc :call CscopeFind('c')<CR>
+	" find text
+	nnoremap <leader>st :call CscopeFind('t')<CR>
+	" egrep
+	nnoremap <leader>se :call CscopeFind('e')<CR>
+	" find file
+	nnoremap <leader>sf :call CscopeFind('f')<CR>
+	" find files including this file
+	nnoremap <leader>si :call CscopeFind('i')<CR>
+	" find place where this symbol is assigned a value
+	nnoremap <leader>sa :call CscopeFind('a')<CR>
+
+	" update cscope.out automatically
+	function! RebuildCscope()
+		if filereadable('cscope.out')
+			silent! execute '!cscope -Rb'
+			cs reset
+		endif
+	endfunction
+	autocmd BufWritePost *.c,*.h,*.cpp call RebuildCscope()
+endif
+
+" Plugins "
 
 " Ultisnips
 let g:UltiSnipsListSnippets="<C-l>"
