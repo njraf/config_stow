@@ -23,3 +23,7 @@ if [ -d ~/.bashrc.d ]; then
     done
 fi
 unset rc
+
+# aliases
+alias grep="grep --color=always"
+alias less="less -R"
