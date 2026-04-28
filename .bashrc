@@ -31,11 +31,11 @@ alias less="less -R"
 ## Colored man pages and less
 export MANPAGER='less' # redundant since man uses less as a pager by default
 export GROFF_NO_SGR=1  # required to display color on some terminals
-export LESS_TERMCAP_mb=$'\e[1;31m' # red blinking text
-export LESS_TERMCAP_md=$'\e[1;31m' # red bold text
+export LESS_TERMCAP_mb=$'\e[1;91m' # red blinking text
+export LESS_TERMCAP_md=$'\e[1;91m' # red bold text
 export LESS_TERMCAP_me=$'\e[0m' # reset/end all special formatting
 export LESS_TERMCAP_ue=$'\e[0m' # reset/end underline mode
-export LESS_TERMCAP_us=$'\e[4;1;32m' # green underline
+export LESS_TERMCAP_us=$'\e[4;1;92m' # green underline
 export LESS_TERMCAP_mr=$'\e[7m' # "reverse" video
 export LESS_TERMCAP_mh=$'\e[2m' # dims text
 # super and subscripts below, rarely used
