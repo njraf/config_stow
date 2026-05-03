@@ -59,3 +59,12 @@ export LESS_TERMCAP_ZW=$'\e[75m'
 
 stty -ixon # disable ctrl-s from pausing execution
 
+# Shell options #
+shopt -s cdspell
+shopt -s autocd
+shopt -s globstar
+
+# openDDS support
+if [[ -f /usr/local/share/dds/dds-devel.sh ]]; then
+	source /usr/local/share/dds/dds-devel.sh
+fi
