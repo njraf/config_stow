@@ -1,5 +1,17 @@
 [user]
 	name = Nick Rafala
 	email = njrafala@outlook.com
+[alias]
+	hist = log --all --decorate --oneline --graph
+[credential]
+	helper = store
+[core]
+	editor = vim
+[credential "https://github.com"]
+	helper = 
+	helper = !/usr/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/usr/bin/gh auth git-credential
 [merge]
 	conflictStyle = diff3
