@@ -1,0 +1,5 @@
+[user]
+	name = Nick Rafala
+	email = njrafala@outlook.com
+[merge]
+	conflictStyle = diff3
