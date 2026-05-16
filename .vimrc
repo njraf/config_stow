@@ -160,12 +160,14 @@ map <silent> <leader>qk <C-w>k :q<CR>
 map <silent> <leader>ql <C-w>l :q<CR>
 
 " keep cursor centered while scrolling
-nnoremap <silent> <C-y> kzz
-nnoremap <silent> <C-e> jzz
+nnoremap <silent> <C-y> <C-y>M
+nnoremap <silent> <C-e> <C-e>M
 nnoremap <silent> <C-u> <C-u>M
 nnoremap <silent> <C-d> <C-d>M
 nnoremap <silent> <C-f> <C-f>M
 nnoremap <silent> <C-b> <C-b>M
+nnoremap <silent> n nzz
+nnoremap <silent> N Nzz
 
 " Auto commands "
 autocmd BufWinLeave * silent! mkview
