@@ -51,10 +51,13 @@ git reset --hard
 # determine the default terminal
 echo "Checking default terminal"
 DEFAULT_TERMINAL=""
+NEW_WINDOW=""
 if which gnome-terminal &> /dev/null; then
 	DEFAULT_TERMINAL="gnome-terminal"
+	NEW_WINDOW="--window"
 elif which ptyxis &> /dev/null; then
 	DEFAULT_TERMINAL="ptyxis"
+	NEW_WINDOW="--new-window"
 else
 	printWarning "Could not determine the default terminal. Not setting custom keybind to open terminal."
 fi
@@ -78,11 +81,11 @@ if [[ "GNOME" == "$XDG_SESSION_DESKTOP" ]] || [[ "gnome" == "$XDG_SESSION_DESKTO
 
 	gsettings set "$KEYBIND_PREFIX"'1/' name "'Update and Shutdown'"
 	gsettings set "$KEYBIND_PREFIX"'1/' binding "'<Primary><Alt><Super>x'"
-	gsettings set "$KEYBIND_PREFIX"'1/' command "'$DEFAULT_TERMINAL -- $HOME/.local/bin/update_and_shutdown.sh'"
+	gsettings set "$KEYBIND_PREFIX"'1/' command "'$DEFAULT_TERMINAL $NEW_WINDOW -- $HOME/.local/bin/update_and_shutdown.sh'"
 	if [[ -n "$DEFAULT_TERMINAL" ]]; then
 		gsettings set "$KEYBIND_PREFIX"'2/' name "'New Terminal'"
 		gsettings set "$KEYBIND_PREFIX"'2/' binding "'<Super>t'"
-		gsettings set "$KEYBIND_PREFIX"'2/' command "'$DEFAULT_TERMINAL'"
+		gsettings set "$KEYBIND_PREFIX"'2/' command "'$DEFAULT_TERMINAL $NEW_WINDOW'"
 	fi
 else
 	printWarning "Could not determine the Desktop Environment. Not setting keyboard shortcuts."
