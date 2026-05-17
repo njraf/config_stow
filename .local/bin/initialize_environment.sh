@@ -73,17 +73,14 @@ SCHEMA_LIST_STR+="]"
 gsettings set org.gnome.settings-daemon.plugins.media-keys custom-keybindings "$SCHEMA_LIST_STR"
 KEYBIND_PREFIX="$SCHEMA:$GPATH"
 if [[ "GNOME" == "$XDG_SESSION_DESKTOP" ]] || [[ "gnome" == "$XDG_SESSION_DESKTOP" ]]; then
-	gsettings set "$KEYBIND_PREFIX"'0/'
 	gsettings set "$KEYBIND_PREFIX"'0/' name "'Toggle Mute'"
 	gsettings set "$KEYBIND_PREFIX"'0/' binding "'<Primary><Alt>m'"
 	gsettings set "$KEYBIND_PREFIX"'0/' command "'bash $HOME/.local/bin/toggle_mute_focused_window.sh'"
 
-	gsettings set "$KEYBIND_PREFIX"'1/'
 	gsettings set "$KEYBIND_PREFIX"'1/' name "'Update and Shutdown'"
 	gsettings set "$KEYBIND_PREFIX"'1/' binding "'<Primary><Alt><Super>x'"
 	gsettings set "$KEYBIND_PREFIX"'1/' command "'$DEFAULT_TERMINAL -- $HOME/.local/bin/update_and_shutdown.sh'"
 	if [[ -n "$DEFAULT_TERMINAL" ]]; then
-		gsettings set "$KEYBIND_PREFIX"'2/'
 		gsettings set "$KEYBIND_PREFIX"'2/' name "'New Terminal'"
 		gsettings set "$KEYBIND_PREFIX"'2/' binding "'<Super>t'"
 		gsettings set "$KEYBIND_PREFIX"'2/' command "'$DEFAULT_TERMINAL'"
