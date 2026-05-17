@@ -1,15 +1,14 @@
 #!/bin/bash
 
-# need:
-# custom program name -n
-# exec path -e
-# icon path -i
-
 name=""
 exec_path=""
 icon=""
 
-while getopts 'n:p:i:' opt; do
+usage() {
+	echo "Usage: $(basename $0) -n program-name -p program-path [-i icon-path]"
+}
+
+while getopts ':hn:p:i:' opt; do
 	case "$opt" in
 		n)
 			name="$OPTARG"
@@ -20,27 +19,31 @@ while getopts 'n:p:i:' opt; do
 		i)
 			icon="$OPTARG"
 			;;
+		h)
+			usage
+			exit 1
+			;;
 		*)
-			echo "Usage: $(basename $0) -n program-name -p program-path [-i icon-path]"
-			exit
+			usage
+			exit 1
 			;;
 	esac
 done
 
 if [ -z "$name"  ] || [ -z "$exec_path"  ]; then
-	echo "empty name or exec path"
-	exit
+	usage
+	exit 1
 fi
 
 desktop_file="$HOME/.local/share/applications/$name.desktop"
-touch "$desktop_file"
-echo "[Desktop Entry]" > "$desktop_file"
-echo "Type=Application" >> "$desktop_file"
-echo "Name=$name" >> "$desktop_file"
-echo "Exec=$exec_path">> "$desktop_file"
+cat <<- EOF > $desktop_file
+[Desktop Entry]
+Type=Application
+Name=$name
+Exec=$exec_path
+Terminal=false
+EOF
 if [ -n "$icon"  ]; then
 	echo "Icon=$icon" >> "$desktop_file"
 fi
-echo "Terminal=false" >> "$desktop_file"
 
-chmod +x "$desktop_file"

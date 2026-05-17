@@ -27,6 +27,8 @@ unset rc
 # aliases
 alias grep="grep --color=always"
 alias less="less -R"
+alias history="history | less"
+alias help="help -m"
 
 ## Colored man pages and less
 export MANPAGER='less' # redundant since man uses less as a pager by default
