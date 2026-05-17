@@ -29,7 +29,7 @@ fi
 
 # check for software and install it if necessary
 echo "Downloading software"
-SW_TO_DOWNLOAD=("stow" "gh")
+SW_TO_DOWNLOAD=("stow" "gh" "nvim" "fastfetch" "steam" "thunderbird" "htop")
 for software in "${SW_TO_DOWNLOAD[@]}"; do
 	if ! which "$software" &> /dev/null; then
 		eval sudo $INSTALL_PREFIX "$software"
@@ -60,8 +60,6 @@ else
 fi
 
 # gnome custom keyboard shortcuts
-#TODO: check that gnome is the current DE
-echo "Setting custom keyboard shortcuts"
 SCHEMA="org.gnome.settings-daemon.plugins.media-keys.custom-keybinding"
 GPATH="/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom"
 SCHEMA_LIST_STR="['"$GPATH"0/', '"$GPATH"1/'"
@@ -73,6 +71,7 @@ SCHEMA_LIST_STR+="]"
 gsettings set org.gnome.settings-daemon.plugins.media-keys custom-keybindings "$SCHEMA_LIST_STR"
 KEYBIND_PREFIX="$SCHEMA:$GPATH"
 if [[ "GNOME" == "$XDG_SESSION_DESKTOP" ]] || [[ "gnome" == "$XDG_SESSION_DESKTOP" ]]; then
+	echo "Setting custom keyboard shortcuts"
 	gsettings set "$KEYBIND_PREFIX"'0/' name "'Toggle Mute'"
 	gsettings set "$KEYBIND_PREFIX"'0/' binding "'<Primary><Alt>m'"
 	gsettings set "$KEYBIND_PREFIX"'0/' command "'bash $HOME/.local/bin/toggle_mute_focused_window.sh'"
@@ -88,3 +87,10 @@ if [[ "GNOME" == "$XDG_SESSION_DESKTOP" ]] || [[ "gnome" == "$XDG_SESSION_DESKTO
 else
 	printWarning "Could not determine the Desktop Environment. Not setting keyboard shortcuts."
 fi
+
+# install lazyvim
+echo "Installing LazyVim"
+git clone https://github.com/LazyVim/starter ~/.config/nvim
+rm -rf ~/.config/nvim/.git
+
+echo "DONE"
