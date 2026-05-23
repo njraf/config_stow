@@ -36,7 +36,7 @@ if [ -z "$name"  ] || [ -z "$exec_path"  ]; then
 fi
 
 desktop_file="$HOME/.local/share/applications/$name.desktop"
-cat <<- EOF > $desktop_file
+cat <<- EOF > "$desktop_file"
 [Desktop Entry]
 Type=Application
 Name=$name
