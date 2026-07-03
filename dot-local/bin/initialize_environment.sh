@@ -65,39 +65,36 @@ if ! which brew &> /dev/null; then
 	brew install -y dashlane/tap/dashlane-cli
 fi
 
-# check whether we are logged in to dashlane
-function loggedInToDashlane() {
-	if [[ "$(dcli status | cut -d ':' -f 2 | head -n 1)" =~ "no" ]]; then
-		return 0
-	else
-		return 1
-	fi
-}
-
 # log in to dashlane
-if ! loggedInToDashlane; then
+if ! dcli status &> /dev/null; then
 	dcli sync
+else
+	printWarning "Could not log in to Dashlane"
 fi
 
 # log in to gh
-if which dcli &> /dev/null && which gh &> /dev/null && loggedInToDashlane; then
+if which dcli &> /dev/null && which gh &> /dev/null && dcli status &> /dev/null; then
 	export GH_TOKEN="$(dcli note github-the-token)"
-	gh auth login -cp https -h GitHub.com # should automatically get the token from GH_TOKEN; not sure about user name
+	gh auth login -cp https -h GitHub.com
 fi
 
 # clear sensitive fields
-export GH_TOKEN=""
+unset GH_TOKEN
 dcli lock
 
 # clone repo and install dotfiles
 if [[ "$(basename $PWD)" != "config_stow" ]]; then
-	if ! gh repo clone config_stow; then
-		printError "Could not clone config_stow. "
-		popd
-		exit 1
+	if ! gh auth status &> /dev/null || ! gh repo clone config_stow; then
+		printWarning "Could not log in to GitHub with gh OR config_stow is not a valid repository"
+		if ! git clone https://github.com/njraf/config_stow; then
+			printError "Could not clone config_stow. Exiting."
+			popd
+			exit 1
+		fi
 	fi
 	cd config_stow
 fi
+
 echo "Stowing"
 stow --dotfiles --adopt .
 git stash --include-untracked
