@@ -31,6 +31,7 @@ alias less="less -R"
 alias history="history | less"
 alias help="help -m"
 alias sl="ls"
+alias info="info --vi-keys"
 
 ## Colored man pages and less
 export MANPAGER='less'               # redundant since man uses less as a pager by default
