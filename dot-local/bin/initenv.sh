@@ -127,10 +127,14 @@ SCHEMA_LIST_STR+="]"
 gsettings set org.gnome.settings-daemon.plugins.media-keys custom-keybindings "$SCHEMA_LIST_STR"
 KEYBIND_PREFIX="$SCHEMA:$GPATH"
 if [[ "GNOME" == "$XDG_SESSION_DESKTOP" ]] || [[ "gnome" == "$XDG_SESSION_DESKTOP" ]]; then
+    echo "Installing gnome extension 'Window Calls"
+#TODO: this needs to be tested. might need to install, not just enable
+    gnome-extension enable window-calls@domandoman.xyz
+
     echo "Setting custom keyboard shortcuts"
     gsettings set "$KEYBIND_PREFIX"'0/' name "'Toggle Mute'"
     gsettings set "$KEYBIND_PREFIX"'0/' binding "'<Primary><Alt>m'"
-    gsettings set "$KEYBIND_PREFIX"'0/' command "'bash $HOME/.local/bin/toggle_mute_focused_window.sh'"
+    gsettings set "$KEYBIND_PREFIX"'0/' command "'bash $HOME/.local/bin/toggle-mute-focused-window.sh'"
 
     if [[ -n "$DEFAULT_TERMINAL" ]]; then
         gsettings set "$KEYBIND_PREFIX"'1/' name "'Update and Shutdown'"

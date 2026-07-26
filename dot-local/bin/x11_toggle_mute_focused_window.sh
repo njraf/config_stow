@@ -14,8 +14,7 @@ while IFS=$'\n' read -r line; do
 	if echo "$line" | grep -q "application.process.id"; then
 		linepid="$(echo $line | cut -d "\"" -f 2)"
 
-		#NOTE: ignore safety check
-		if true || (( $linepid == $winpid )); then
+		if (( $linepid == $winpid )); then
 			echo "Sink input ID: $lastSinkInID"
 			pactl set-sink-input-mute $lastSinkInID toggle
 		fi
