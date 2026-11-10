@@ -127,6 +127,55 @@ endfunction
 " Attach the function to the statusline
 set statusline=%!StatusLine()
 
+" Toggle line comments
+function! ToggleComment(...) abort
+  " Called by g@ with a motion type; the range is marked by '[ and ']
+  let first = line("'[")
+  let last  = line("']")
+
+  let cs    = &commentstring ==# '' ? '# %s' : &commentstring
+  let parts = split(cs, '%s', 1)
+  let pre   = trim(parts[0])
+  let post  = len(parts) > 1 ? trim(parts[1]) : ''
+
+  let pat = '\V\^\(\s\*\)' . escape(pre, '\') . '\s\?\(\.\{-}\)'
+  if post !=# ''
+    let pat .= '\s\?' . escape(post, '\')
+  endif
+  let pat .= '\$'
+
+  let nums = filter(range(first, last), 'getline(v:val) =~# "\\S"')
+  if empty(nums)
+    return
+  endif
+
+  let uncomment = 1
+  for n in nums
+    if getline(n) !~# pat
+      let uncomment = 0
+      break
+    endif
+  endfor
+
+  let ind = min(map(copy(nums), 'len(matchstr(getline(v:val), "^\\s*"))'))
+
+  for n in nums
+    let line = getline(n)
+    if uncomment
+      call setline(n, substitute(line, pat, '\1\2', ''))
+    else
+      let new = strpart(line, 0, ind) . pre . ' ' . strpart(line, ind)
+      if post !=# ''
+        let new .= ' ' . post
+      endif
+      call setline(n, new)
+    endif
+  endfor
+endfunction
+nnoremap <silent> <leader>c  :set operatorfunc=ToggleComment<CR>g@
+xnoremap <silent> <leader>c  :<C-u>set operatorfunc=ToggleComment<CR>gvg@
+nnoremap <silent> <leader>cc :set operatorfunc=ToggleComment<CR>g@_
+
 " toggle a file explorer in a vertical split
 nnoremap <silent> <leader>e :20Lexplore<CR>
 

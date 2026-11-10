@@ -73,3 +73,8 @@ shopt -s globstar
 if [ -f /opt/OpenDDS*/setenv.sh ]; then
     source /opt/OpenDDS-*/setenv.sh
 fi
+
+# functions #
+function ownline() {
+	$1 | tr "${2:- }" '\n'
+}

@@ -1,11 +1,11 @@
 Instructions - automatic setup
 ============
-1. curl -sL njraf.github.io/config_stow/dot-local/bin/initialize_environment.sh | bash
+1. curl -sL njraf.github.io/config_stow/dot-local/bin/initenv.sh | bash
 
 Instructions - manual setup
 ============
 1. Clone the repo in the home directory
-1a. optionally run 'dot-local/bin/initialize_environment.sh' instead of the remaining steps
+1a. optionally run 'dot-local/bin/initenv.sh' instead of the remaining steps
 2. install stow
 3. cd config_stow
 4. stow --dotfiles --adopt .
