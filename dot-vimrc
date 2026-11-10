@@ -172,9 +172,9 @@ function! ToggleComment(...) abort
     endif
   endfor
 endfunction
-nnoremap <silent> <leader>c  :set operatorfunc=ToggleComment<CR>g@
-xnoremap <silent> <leader>c  :<C-u>set operatorfunc=ToggleComment<CR>gvg@
-nnoremap <silent> <leader>cc :set operatorfunc=ToggleComment<CR>g@_
+nnoremap <silent> <C-_>  :set operatorfunc=ToggleComment<CR>g@
+xnoremap <silent> <C-_>  :<C-u>set operatorfunc=ToggleComment<CR>gvg@
+nnoremap <silent> <C-_><C-_> :set operatorfunc=ToggleComment<CR>g@_
 
 " toggle a file explorer in a vertical split
 nnoremap <silent> <leader>e :20Lexplore<CR>
